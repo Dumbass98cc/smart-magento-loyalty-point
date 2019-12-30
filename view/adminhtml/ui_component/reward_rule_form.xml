@@ -190,7 +190,7 @@
                 <switcherConfig>
                     <rules>
                         <rule name="0">
-                            <value>fixed_point</value>
+                            <value>0</value>
                             <actions>
                                 <action name="0">
                                     <target>reward_rule_form.reward_rule_form.actions.point_to_be_earned</target>
@@ -207,7 +207,7 @@
                             </actions>
                         </rule>
                         <rule name="1">
-                            <value>by_rate</value>
+                            <value>1</value>
                             <actions>
                                 <action name="0">
                                     <target>reward_rule_form.reward_rule_form.actions.point_to_be_earned</target>
@@ -224,7 +224,7 @@
                             </actions>
                         </rule>
                         <rule name="2">
-                            <value>by_step</value>
+                            <value>2</value>
                             <actions>
                                 <action name="0">
                                     <target>reward_rule_form.reward_rule_form.actions.point_to_be_earned</target>
@@ -256,15 +256,15 @@
                     <settings>
                         <options>
                             <option name="0" xsi:type="array">
-                                <item name="value" xsi:type="string">fixed_point</item>
+                                <item name="value" xsi:type="string">0</item>
                                 <item name="label" xsi:type="string" translate="true">Fixed Point</item>
                             </option>
                             <option name="1" xsi:type="array">
-                                <item name="value" xsi:type="string">by_rate</item>
+                                <item name="value" xsi:type="string">1</item>
                                 <item name="label" xsi:type="string" translate="true">Add Point By Rate</item>
                             </option>
                             <option name="2" xsi:type="array">
-                                <item name="value" xsi:type="string">by_step</item>
+                                <item name="value" xsi:type="string">2</item>
                                 <item name="label" xsi:type="string" translate="true">Add Point By Step</item>
                             </option>
                         </options>

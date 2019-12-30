@@ -243,4 +243,27 @@ class Rule extends \Magento\Framework\Model\AbstractExtensibleModel implements \
     {
         return $this->setExtensionAttributes($extensionAttributes);
     }
+
+    /**
+     * @param \Magento\Framework\DataObject $dataObject
+     * @return array|bool
+     */
+    public function validateData(\Magento\Framework\DataObject $dataObject)
+    {
+        $result = [];
+        $fromDate = $toDate = null;
+
+        if ($dataObject->hasFromDate() && $dataObject->hasToDate()) {
+            $fromDate = $dataObject->getFromDate();
+            $toDate = $dataObject->getToDate();
+        }
+
+        if ($fromDate && $toDate) {
+            if ($fromDate > $toDate) {
+                $result[] = __('End Date must follow Start Date');
+            }
+        }
+
+        return !empty($result) ? $result : true;
+    }
 }

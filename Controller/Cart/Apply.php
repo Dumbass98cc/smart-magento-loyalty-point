@@ -1,12 +1,14 @@
 <?php
 
-
 namespace Loyalty\Point\Controller\Cart;
-
 
 use Magento\Checkout\Controller\Cart;
 use Magento\Framework\DB\Select;
 
+/**
+ * Class Apply
+ * @package Loyalty\Point\Controller\Cart
+ */
 class Apply extends Cart
 {
     /**
@@ -20,11 +22,6 @@ class Apply extends Cart
      * @var \Loyalty\Point\Helper\Data
      */
     private $pointsHelper;
-
-    /**
-     * @var
-     */
-    private $rule;
 
     /**
      * @var \Loyalty\Point\Model\ResourceModel\History\CollectionFactory
@@ -54,8 +51,7 @@ class Apply extends Cart
         \Magento\Quote\Api\CartRepositoryInterface $quoteRepository,
         \Loyalty\Point\Helper\Data $pointsHelper,
         \Loyalty\Point\Model\ResourceModel\History\CollectionFactory $historyCollectionFactory
-    )
-    {
+    ) {
         parent::__construct(
             $context,
             $scopeConfig,
@@ -99,7 +95,6 @@ class Apply extends Cart
             $this->messageManager->addError($e->getMessage());
         } catch (\Exception $e) {
             $this->messageManager->addError(__('We cannot apply the reward points.'));
-            $this->_objectManager->get('Psr\Log\LoggerInterface')->critical($e);
         }
 
         return $this->_goBack();

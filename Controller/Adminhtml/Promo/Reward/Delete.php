@@ -1,13 +1,15 @@
 <?php
 
-
 namespace Loyalty\Point\Controller\Adminhtml\Promo\Reward;
-
 
 use Magento\Framework\App\Action\HttpPostActionInterface;
 use Magento\Framework\App\ResponseInterface;
 use Magento\Framework\Exception\LocalizedException;
 
+/**
+ * Class Delete
+ * @package Loyalty\Point\Controller\Adminhtml\Promo\Reward
+ */
 class Delete extends \Loyalty\Point\Controller\Adminhtml\Promo\Reward implements HttpPostActionInterface
 {
     /**

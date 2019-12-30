@@ -1,13 +1,15 @@
 <?php
 
-
 namespace Loyalty\Point\Controller\Adminhtml\Promo\Reward;
-
 
 use Magento\Framework\App\Action\HttpGetActionInterface;
 use Magento\Framework\App\ResponseInterface;
 use Magento\Framework\Exception\NoSuchEntityException;
 
+/**
+ * Class Edit
+ * @package Loyalty\Point\Controller\Adminhtml\Promo\Reward
+ */
 class Edit extends \Loyalty\Point\Controller\Adminhtml\Promo\Reward implements HttpGetActionInterface
 {
     /**

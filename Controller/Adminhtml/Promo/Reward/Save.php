@@ -1,17 +1,29 @@
 <?php
 
-
 namespace Loyalty\Point\Controller\Adminhtml\Promo\Reward;
-
 
 use Magento\Framework\App\Action\HttpPostActionInterface;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Stdlib\DateTime\Filter\Date;
 
+/**
+ * Class Save
+ * @package Loyalty\Point\Controller\Adminhtml\Promo\Reward
+ */
 class Save extends \Loyalty\Point\Controller\Adminhtml\Promo\Reward implements HttpPostActionInterface
 {
+    /**
+     * @var \Magento\Framework\App\Request\DataPersistorInterface
+     */
     protected $dataPersistor;
 
+    /**
+     * Save constructor.
+     * @param \Magento\Backend\App\Action\Context $context
+     * @param \Magento\Framework\Registry $coreRegistry
+     * @param Date $dateFilter
+     * @param \Magento\Framework\App\Request\DataPersistorInterface $dataPersistor
+     */
     public function __construct(
         \Magento\Backend\App\Action\Context $context,
         \Magento\Framework\Registry $coreRegistry,
@@ -69,6 +81,17 @@ class Save extends \Loyalty\Point\Controller\Adminhtml\Promo\Reward implements H
 //                }
 
 //                $model->loadPost($data);
+                $validateResult = $model->validateData(new \Magento\Framework\DataObject($data));
+                if ($validateResult !== true) {
+                    foreach ($validateResult as $errorMessage) {
+                        $this->messageManager->addErrorMessage($errorMessage);
+                    }
+                    $this->_getSession()->setPageData($data);
+                    $this->dataPersistor->set('reward_rule', $data);
+                    $this->_redirect('*/*/edit', ['id' => $model->getId()]);
+                    return;
+                }
+
                 $model->setData($data);
 
                 $this->_objectManager->get(\Magento\Backend\Model\Session::class)->setPageData($data);
