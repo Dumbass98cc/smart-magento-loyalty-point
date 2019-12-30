@@ -1,0 +1,47 @@
+<?php
+
+/** @var \Loyalty\Point\Block\Adminhtml\Customer\Edit\Tab\Grid $block */
+$history = $block->getPointHistory();
+$pointBalance = $block->getPointBalance();
+?>
+
+<div class="point-balance">
+    <p><b>Point Balance:</b> <?= $pointBalance ?></p>
+    <form action="<?php echo $this->getUrl('*/*/changePoint') ?>" method="post">
+        <input type="text" name="point">
+        <input type="hidden" name="form_key" value="<?php echo $block->getFormKey() ?>"/>
+        <input type="hidden" name="customer_id" value="<?php echo $block->getCustomerId() ?>"/>
+        <button type="submit">Add Point</button>
+    </form>
+</div><br>
+
+<div class="table-wrapper orders-history">
+    <table class="data-grid" id="wishlistGrid_table">
+        <!-- Rendering column set -->
+        <thead>
+        <tr>
+            <th data-sort="product_name" data-direction="asc"
+                class="data-grid-th _sortable not-sort col-name col-product_name"><span>Id</span></th>
+            <th data-sort="description" data-direction="asc" class="data-grid-th _sortable not-sort col-description">
+                <span>Points</span></th>
+            <th data-sort="qty" data-direction="asc" class="data-grid-th _sortable not-sort  col-qty">
+                <span>Source</span></th>
+            <th data-sort="store" data-direction="asc" class="data-grid-th _sortable not-sort  col-store">
+                <span>Created At</span>
+            </th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <?php foreach ($history as $value): ?>
+            <tr class="data-grid-tr-data even" data-role="row">
+                <td class=""><?= $value['history_id'] ?></td>
+                <td class=""><?= $value['points'] ?></td>
+                <td class=""><?= $value['source'] ?></td>
+                <td class=""><?= $value['created_at'] ?></td>
+            </tr>
+        <?php endforeach; ?>
+        </tbody>
+
+    </table>
+</div>

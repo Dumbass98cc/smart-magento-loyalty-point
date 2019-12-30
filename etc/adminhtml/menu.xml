@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Loyalty_Point::promo_reward" title="Loyalty Reward Rule" translate="title" sortOrder="30"
+             module="Loyalty_Point" parent="Magento_CatalogRule::promo" action="loyalty/promo_reward/"
+             dependsOnModule="Loyalty_Point" resource="Loyalty_Point::promo_reward"/>
+    </menu>
+</config>

@@ -1,0 +1,48 @@
+<?php
+/** @var \Loyalty\Point\Block\Cart\Points $block */
+?>
+
+<div class="block reward-points" id="block-reward-points"
+     data-mage-init='{"collapsible":{"openedState": "active", "saveState": false}}'>
+    <div class="title" data-role="title">
+        <strong id="block-reward-points-heading" role="heading" aria-level="2"><?= /* @escapeNotVerified */
+            __('Reward Points') ?></strong>
+    </div>
+    <div class="content" data-role="content" aria-labelledby="block-reward-points-heading">
+        <p><?= /* @escapeNotVerified */
+            __('You have %1 points.', $block->getCustomerPoints()) ?></p>
+
+        <form id="reward-points-form"
+              action="<?= /* @escapeNotVerified */$block->getUrl('loyalty/cart/apply') ?>"
+              method="post"
+              data-mage-init='{"rewardPoints":{"rewardPointSelector": "#reward_point_manually",
+                                               "applyButton": "#reward-points-form button.action.apply",
+                                               "points":"<?php echo $block->getCustomerPoints() ?>",
+                                               "maxPoints":<?php echo $block->getMaxPoints() ?>,
+                                               "selectedPoints":<?php echo $block->getSelectedPoints() ?>}}'>
+
+            <div class="fieldset coupon">
+                <div class="field">
+                    <label for="reward_point_manually" class="label"><span><?= /* @escapeNotVerified */
+                            __('Enter Points') ?></span></label>
+                    <div class="control">
+                        <input type="text" class="input-text" id="reward_point_manually"
+                               name="reward_point_manually"
+                               value="<?= $block->escapeHtml($block->getCouponCode()) ?>"
+                               placeholder="<?= $block->escapeHtml(__('Enter Points')); ?>"/>
+                    </div>
+                </div>
+                <div class="actions-toolbar">
+                    <div class="primary">
+                        <button class="action apply primary" type="button" value="<?= /* @escapeNotVerified */
+                        __('Apply Points') ?>">
+                            <span><?= /* @escapeNotVerified */
+                                __('Apply Points') ?></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+

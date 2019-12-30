@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">reward_rule_form.reward_rule_form_data_source</item>
+        </item>
+        <item name="label" xsi:type="string" translate="true">Loyalty Reward Rule</item>
+        <item name="template" xsi:type="string">templates/form/collapsible</item>
+    </argument>
+    <settings>
+        <buttons>
+            <button name="delete" class="Loyalty\Point\Block\Adminhtml\Promo\Edit\DeleteButton"/>
+            <button name="save_and_continue" class="Loyalty\Point\Block\Adminhtml\Promo\Edit\SaveAndContinueButton"/>
+            <button name="reset" class="Loyalty\Point\Block\Adminhtml\Promo\Edit\ResetButton"/>
+            <button name="save" class="Loyalty\Point\Block\Adminhtml\Promo\Edit\SaveButton"/>
+            <button name="back">
+                <url path="*/*/"/>
+                <class>back</class>
+                <label translate="true">Back</label>
+            </button>
+        </buttons>
+        <namespace>reward_rule_form</namespace>
+        <dataScope>data</dataScope>
+        <deps>
+            <dep>reward_rule_form.reward_rule_form_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource name="reward_rule_form_data_source">
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+            </item>
+        </argument>
+        <settings>
+            <submitUrl path="*/*/save"/>
+        </settings>
+        <dataProvider class="Loyalty\Point\Model\Rule\DataProvider" name="reward_rule_form_data_source">
+            <settings>
+                <requestFieldName>id</requestFieldName>
+                <primaryFieldName>rule_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <fieldset name="rule_information" sortOrder="10">
+        <settings>
+            <collapsible>true</collapsible>
+            <opened>true</opened>
+            <label translate="true">Rule Information</label>
+        </settings>
+        <field name="rule_id" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">reward_rule</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <visible>false</visible>
+                <dataScope>rule_id</dataScope>
+            </settings>
+        </field>
+        <field name="name" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">reward_rule</item>
+                </item>
+            </argument>
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+                <dataType>text</dataType>
+                <label translate="true">Rule Name</label>
+                <visible>true</visible>
+                <dataScope>name</dataScope>
+            </settings>
+        </field>
+        <field name="status" formElement="select">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">reward_rule</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>number</dataType>
+                <label translate="true">Status</label>
+                <visible>true</visible>
+                <dataScope>status</dataScope>
+            </settings>
+            <formElements>
+                <select>
+                    <settings>
+                        <options>
+                            <option name="0" xsi:type="array">
+                                <item name="value" xsi:type="number">1</item>
+                                <item name="label" xsi:type="string" translate="true">Active</item>
+                            </option>
+                            <option name="1" xsi:type="array">
+                                <item name="value" xsi:type="number">0</item>
+                                <item name="label" xsi:type="string" translate="true">Inactive</item>
+                            </option>
+                        </options>
+                    </settings>
+                </select>
+            </formElements>
+        </field>
+        <field name="customer_group_ids" formElement="multiselect">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">reward_rule</item>
+                </item>
+            </argument>
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+                <dataType>number</dataType>
+                <label translate="true">Customer Groups</label>
+                <dataScope>customer_group_ids</dataScope>
+            </settings>
+            <formElements>
+                <multiselect>
+                    <settings>
+                        <options class="Loyalty\Point\Model\Rule\CustomerGroupsOptionsProvider"/>
+                    </settings>
+                </multiselect>
+            </formElements>
+        </field>
+        <field name="minimum_point" sortOrder="40" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">reward_rule</item>
+                </item>
+            </argument>
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+                <dataType>number</dataType>
+                <label translate="true">Minimum Point For Reward</label>
+                <dataScope>minimum_point</dataScope>
+            </settings>
+        </field>
+        <field name="from_date" formElement="date">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">reward_rule</item>
+                </item>
+            </argument>
+            <settings>
+                <validation>
+                    <rule name="validate-date" xsi:type="boolean">true</rule>
+                </validation>
+                <dataType>text</dataType>
+                <label translate="true">From</label>
+                <visible>true</visible>
+                <dataScope>from_date</dataScope>
+            </settings>
+        </field>
+        <field name="to_date" formElement="date">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">reward_rule</item>
+                </item>
+            </argument>
+            <settings>
+                <validation>
+                    <rule name="validate-date" xsi:type="boolean">true</rule>
+                </validation>
+                <dataType>text</dataType>
+                <label translate="true">To</label>
+                <visible>true</visible>
+                <dataScope>to_date</dataScope>
+            </settings>
+        </field>
+    </fieldset>
+    <fieldset name="actions" sortOrder="20">
+        <settings>
+            <collapsible>true</collapsible>
+            <label translate="true">Actions</label>
+        </settings>
+        <field name="type" formElement="select">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">reward_rule</item>
+                </item>
+            </argument>
+            <settings>
+                <switcherConfig>
+                    <rules>
+                        <rule name="0">
+                            <value>fixed_point</value>
+                            <actions>
+                                <action name="0">
+                                    <target>reward_rule_form.reward_rule_form.actions.point_to_be_earned</target>
+                                    <callback>show</callback>
+                                </action>
+                                <action name="1">
+                                    <target>reward_rule_form.reward_rule_form.actions.conversion_rate</target>
+                                    <callback>hide</callback>
+                                </action>
+                                <action name="2">
+                                    <target>reward_rule_form.reward_rule_form.actions.price_step</target>
+                                    <callback>hide</callback>
+                                </action>
+                            </actions>
+                        </rule>
+                        <rule name="1">
+                            <value>by_rate</value>
+                            <actions>
+                                <action name="0">
+                                    <target>reward_rule_form.reward_rule_form.actions.point_to_be_earned</target>
+                                    <callback>hide</callback>
+                                </action>
+                                <action name="1">
+                                    <target>reward_rule_form.reward_rule_form.actions.conversion_rate</target>
+                                    <callback>show</callback>
+                                </action>
+                                <action name="2">
+                                    <target>reward_rule_form.reward_rule_form.actions.price_step</target>
+                                    <callback>hide</callback>
+                                </action>
+                            </actions>
+                        </rule>
+                        <rule name="2">
+                            <value>by_step</value>
+                            <actions>
+                                <action name="0">
+                                    <target>reward_rule_form.reward_rule_form.actions.point_to_be_earned</target>
+                                    <callback>show</callback>
+                                </action>
+                                <action name="1">
+                                    <target>reward_rule_form.reward_rule_form.actions.conversion_rate</target>
+                                    <callback>hide</callback>
+                                </action>
+                                <action name="2">
+                                    <target>reward_rule_form.reward_rule_form.actions.price_step</target>
+                                    <callback>show</callback>
+                                </action>
+                            </actions>
+                        </rule>
+                    </rules>
+                    <enabled>true</enabled>
+                </switcherConfig>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+                <dataType>text</dataType>
+                <label translate="true">Rule Type</label>
+                <visible>true</visible>
+                <dataScope>type</dataScope>
+            </settings>
+            <formElements>
+                <select>
+                    <settings>
+                        <options>
+                            <option name="0" xsi:type="array">
+                                <item name="value" xsi:type="string">fixed_point</item>
+                                <item name="label" xsi:type="string" translate="true">Fixed Point</item>
+                            </option>
+                            <option name="1" xsi:type="array">
+                                <item name="value" xsi:type="string">by_rate</item>
+                                <item name="label" xsi:type="string" translate="true">Add Point By Rate</item>
+                            </option>
+                            <option name="2" xsi:type="array">
+                                <item name="value" xsi:type="string">by_step</item>
+                                <item name="label" xsi:type="string" translate="true">Add Point By Step</item>
+                            </option>
+                        </options>
+                    </settings>
+                </select>
+            </formElements>
+        </field>
+        <field name="point_to_be_earned" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">reward_rule</item>
+                </item>
+            </argument>
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+                <dataType>text</dataType>
+                <label translate="true">Point To Be Earned</label>
+                <dataScope>point_to_be_earned</dataScope>
+            </settings>
+        </field>
+        <field name="conversion_rate" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">reward_rule</item>
+                </item>
+            </argument>
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+                <dataType>text</dataType>
+                <label translate="true">Conversion Rate</label>
+                <dataScope>conversion_rate</dataScope>
+            </settings>
+        </field>
+        <field name="price_step" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">reward_rule</item>
+                </item>
+            </argument>
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+                <dataType>text</dataType>
+                <label translate="true">Buy X</label>
+                <dataScope>price_step</dataScope>
+            </settings>
+        </field>
+    </fieldset>
+</form>
