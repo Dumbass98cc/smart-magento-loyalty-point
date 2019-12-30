@@ -22,4 +22,7 @@
     <event name="checkout_submit_all_after">
         <observer name="reward_checkout_submit_all_after" instance="Loyalty\Point\Observer\RewardCheckoutSubmitAllAfter" />
     </event>
+    <event name="sales_order_save_after">
+        <observer name="reward_sales_order_save_after" instance="Loyalty\Point\Observer\RewardOrderSaveAfter" />
+    </event>
 </config>

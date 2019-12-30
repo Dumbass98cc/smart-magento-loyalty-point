@@ -72,9 +72,9 @@ class RewardRuleRepository implements RewardRuleRepositoryInterface
         if (!isset($this->rules[$ruleId])) {
             /** @var \Loyalty\Point\Model\Rule $rule */
             $rule = $this->ruleFactory->create();
-
 //            $this->ruleResource->load($rule, $ruleId);
             $rule->load($ruleId);
+//            var_dump($rule->getRuleId()); die;
 
             if (!$rule->getRuleId()) {
                 throw new NoSuchEntityException(

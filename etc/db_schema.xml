@@ -57,8 +57,10 @@
     </table>
     <table name="quote" resource="default" engine="innodb" comment="Quote">
         <column xsi:type="int" name="reward_points_amount" nullable="true" default="0" comment="Points amount"/>
+        <column xsi:type="int" name="points_earn" nullable="true" default="0" comment="Point earn"/>
     </table>
     <table name="sales_order" resource="default" engine="innodb" comment="Salses Order">
         <column xsi:type="int" name="reward_points_amount" nullable="true" comment="Points amount"/>
+        <column xsi:type="int" name="points_earn" nullable="true" default="0" comment="Point earn"/>
     </table>
 </schema>

@@ -1,8 +1,8 @@
 <!-- ko if: isDisplayed() -->
-<tr class="totals reward-points excl">
+<tr class="totals earn-points excl">
     <th class="mark" colspan="1" scope="row" data-bind="text: earn_points"></th>
     <td class="amount">
-        <span class="price" data-bind="text: getPureValue()"></span>
+        <span class="price" data-bind="text: getPureValue(), attr: {'data-th': earn_points"></span>
     </td>
 </tr>
 <!-- /ko -->

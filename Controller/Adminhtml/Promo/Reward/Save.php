@@ -57,18 +57,19 @@ class Save extends \Loyalty\Point\Controller\Adminhtml\Promo\Reward implements H
                     $model = $ruleRepository->get($id);
                 }
 
-                $validateResult = $model->validateData(new \Magento\Framework\DataObject($data));
-                if ($validateResult !== true) {
-                    foreach ($validateResult as $errorMessage) {
-                        $this->messageManager->addErrorMessage($errorMessage);
-                    }
-                    $this->_getSession()->setPageData($data);
-                    $this->dataPersistor->set('reward_rule', $data);
-                    $this->_redirect('*/*/edit', ['id' => $model->getId()]);
-                    return;
-                }
+//                $validateResult = $model->validateData(new \Magento\Framework\DataObject($data));
+//                if ($validateResult !== true) {
+//                    foreach ($validateResult as $errorMessage) {
+//                        $this->messageManager->addErrorMessage($errorMessage);
+//                    }
+//                    $this->_getSession()->setPageData($data);
+//                    $this->dataPersistor->set('reward_rule', $data);
+//                    $this->_redirect('*/*/edit', ['id' => $model->getId()]);
+//                    return;
+//                }
 
-                $model->loadPost($data);
+//                $model->loadPost($data);
+                $model->setData($data);
 
                 $this->_objectManager->get(\Magento\Backend\Model\Session::class)->setPageData($data);
                 $this->dataPersistor->set('reward_rule', $data);

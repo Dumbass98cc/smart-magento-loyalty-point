@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+<!--    <type name="Loyalty\Point\Model\ResourceModel\Rule">-->
+<!--        <arguments>-->
+<!--            <argument name="eventManager" xsi:type="object">Magento\Framework\Event\Manager\Proxy</argument>-->
+<!--        </arguments>-->
+<!--    </type>-->
+<!--    <type name="Magento\Framework\Module\Setup\Migration">-->
+<!--        <arguments>-->
+<!--            <argument name="compositeModules" xsi:type="array">-->
+<!--                <item name="rewardrule" xsi:type="string">Loyalty_Point</item>-->
+<!--            </argument>-->
+<!--        </arguments>-->
+<!--    </type>-->
     <preference for="Loyalty\Point\Api\Data\RuleInterface" type="Loyalty\Point\Model\Rule" />
     <preference for="Loyalty\Point\Api\RewardRuleRepositoryInterface" type="Loyalty\Point\Model\RewardRuleRepository" />
     <preference for="Loyalty\Point\Api\PointsManagementInterface" type="Loyalty\Point\Model\PointsManagement" />

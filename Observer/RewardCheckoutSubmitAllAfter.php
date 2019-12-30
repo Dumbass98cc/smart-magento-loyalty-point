@@ -43,8 +43,7 @@ class RewardCheckoutSubmitAllAfter implements ObserverInterface
         \Loyalty\Point\Model\ResourceModel\Rule\CollectionFactory $ruleCollectionFactory,
         \Loyalty\Point\Helper\Data $helper,
         \Loyalty\Point\Observer\Message\AfterPlaceOrder $messageManager
-    )
-    {
+    ) {
         $this->historyFactory = $historyFactory;
         $this->ruleCollectionFactory = $ruleCollectionFactory;
         $this->helper = $helper;
@@ -83,45 +82,45 @@ class RewardCheckoutSubmitAllAfter implements ObserverInterface
             $model->save();
         }
 
-        //apply rules
-        $groupId = $quote->getCustomer()->getGroupId();
-        $ruleCollection = $this->ruleCollectionFactory->create()->addCustomerGroupFilter($groupId);
-
-        $points = 0;
-        /** @var \Loyalty\Point\Model\Rule $rule */
-        foreach ($ruleCollection as $rule) {
-            if ($rule->getStatus() && $rule->getFromDate() && $rule->getToDate() &&
-                !($this->helper->getCustomerPoints($quote->getCustomer()->getId()) + $rewardAmount < $rule->getMinimumPoint())) {
-                if ($rule->getFromDate() <= $quoteDate && $rule->getToDate() >= $quoteDate)
-                switch ($rule->getType()) {
-                    case 1:
-                        $points += $rule->getPointToBeEarned();
-                        break;
-                    case 2:
-                        $points += floor($quote->getGrandTotal() / $rule->getConversionRate());
-                        break;
-                    case 3:
-                        $points += floor($quote->getGrandTotal() / $rule->getPriceStep())
-                            * $rule->getPointToBeEarned();
-                        break;
-                    default:
-                        $points = 0;
-                }
-            }
-        }
-
-        if ($points > 0) {
-            $this->messageManager->showMessage($points);
-
-            /** @var \Loyalty\Point\Model\History $model */
-            $model = $this->historyFactory->create();
-            $model->setCustomerId($quote->getCustomer()->getId());
-            $model->setPoints($points);
-            $model->setSource("Get by order " . $order->getIncrementId());
-            $model->setCreatedAt($quoteDate);
-
-            $model->save();
-        }
+//        //apply rules
+//        $groupId = $quote->getCustomer()->getGroupId();
+//        $ruleCollection = $this->ruleCollectionFactory->create()->addCustomerGroupFilter($groupId);
+//
+//        $points = 0;
+//        /** @var \Loyalty\Point\Model\Rule $rule */
+//        foreach ($ruleCollection as $rule) {
+//            if ($rule->getStatus() && $rule->getFromDate() && $rule->getToDate() &&
+//                !($this->helper->getCustomerPoints($quote->getCustomer()->getId()) + $rewardAmount < $rule->getMinimumPoint())) {
+//                if ($rule->getFromDate() <= $quoteDate && $rule->getToDate() >= $quoteDate)
+//                switch ($rule->getType()) {
+//                    case 1:
+//                        $points += $rule->getPointToBeEarned();
+//                        break;
+//                    case 2:
+//                        $points += floor($quote->getGrandTotal() / $rule->getConversionRate());
+//                        break;
+//                    case 3:
+//                        $points += floor($quote->getGrandTotal() / $rule->getPriceStep())
+//                            * $rule->getPointToBeEarned();
+//                        break;
+//                    default:
+//                        $points = 0;
+//                }
+//            }
+//        }
+//
+//        if ($points > 0) {
+//            $this->messageManager->showMessage($points);
+//
+//            /** @var \Loyalty\Point\Model\History $model */
+//            $model = $this->historyFactory->create();
+//            $model->setCustomerId($quote->getCustomer()->getId());
+//            $model->setPoints($points);
+//            $model->setSource("Get by order " . $order->getIncrementId());
+//            $model->setCreatedAt($quoteDate);
+//
+//            $model->save();
+//        }
 
         return $this;
     }

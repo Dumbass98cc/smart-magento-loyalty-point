@@ -20,17 +20,17 @@
                                     </item>
                                 </item>
 
-<!--                                <item name="earn_points" xsi:type="array">-->
-<!--                                    <item name="component" xsi:type="string">-->
-<!--                                        Loyalty_Point/js/view/checkout/summary/earn-points-->
-<!--                                    </item>-->
-<!--                                    <item name="sortOrder" xsi:type="string">50</item>-->
-<!--                                    <item name="config" xsi:type="array">-->
-<!--                                        <item name="earn-points" xsi:type="string" translate="true">-->
-<!--                                            Earn Points-->
-<!--                                        </item>-->
-<!--                                    </item>-->
-<!--                                </item>-->
+                                <item name="earn_points" xsi:type="array">
+                                    <item name="component" xsi:type="string">
+                                        Loyalty_Point/js/view/checkout/summary/earn-points
+                                    </item>
+                                    <item name="sortOrder" xsi:type="string">50</item>
+                                    <item name="config" xsi:type="array">
+                                        <item name="earn_points" xsi:type="string" translate="true">
+                                            Earn Points
+                                        </item>
+                                    </item>
+                                </item>
                             </item>
                         </item>
                     </item>

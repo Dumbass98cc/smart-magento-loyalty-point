@@ -145,30 +145,28 @@ class RewardConfigProvider implements \Magento\Checkout\Model\ConfigProviderInte
         $points = 0;
         /** @var \Loyalty\Point\Model\Rule $rule */
         foreach ($ruleCollection as $rule) {
-            if ($rule->getStatus() && !($this->getAvailablePoints() < $rule->getMinimumPoint())
-                && $rule->getFromDate() && $rule->getToDate()) {
+            if ($rule->getStatus() && $rule->getFromDate() && $rule->getToDate()
+                && $rule->getMinimumPoint() <= $this->getAvailablePoints()) {
                 if ($rule->getFromDate() <= $quoteDate && $rule->getToDate() >= $quoteDate)
                 switch ($rule->getType()) {
-                    case 1:
-                    {
+                    case 0:
                         $points += $rule->getPointToBeEarned();
                         break;
-                    }
-                    case 2:
-                    {
+                    case 1:
                         $points += floor($this->checkoutSession->getQuote()->getGrandTotal() / $rule->getConversionRate());
                         break;
-                    }
-                    case 3:
-                    {
+                    case 2:
                         $points += floor($this->checkoutSession->getQuote()->getGrandTotal() / $rule->getPriceStep())
                             * $rule->getPointToBeEarned();
                         break;
-                    }
                     default:
                         $points = 0;
                 }
             }
+        }
+
+        if ($points > 0) {
+            $this->checkoutSession->getQuote()->setPointsEarn($points)->save();
         }
 
         return $points;

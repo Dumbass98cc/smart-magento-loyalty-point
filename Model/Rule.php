@@ -12,10 +12,10 @@ use Loyalty\Point\Model\ResourceModel\Rule as RuleResourceModel;
  * Class Rule
  * @package Loyalty\Point\Model
  */
-class Rule extends \Magento\Rule\Model\AbstractModel implements \Loyalty\Point\Api\Data\RuleInterface
+class Rule extends \Magento\Framework\Model\AbstractExtensibleModel implements \Loyalty\Point\Api\Data\RuleInterface
 {
     /**
-     * @var RuleResourceModel
+     * @var \Loyalty\Point\Model\ResourceModel\Rule
      */
     private $ruleResourceModel;
 
@@ -23,40 +23,31 @@ class Rule extends \Magento\Rule\Model\AbstractModel implements \Loyalty\Point\A
      * Rule constructor.
      * @param \Magento\Framework\Model\Context $context
      * @param \Magento\Framework\Registry $registry
-     * @param \Magento\Framework\Data\FormFactory $formFactory
-     * @param \Magento\Framework\Stdlib\DateTime\TimezoneInterface $localeDate
+     * @param ExtensionAttributesFactory $extensionFactory
+     * @param AttributeValueFactory $customAttributeFactory
      * @param RuleResourceModel $ruleResourceModel
      * @param \Magento\Framework\Model\ResourceModel\AbstractResource|null $resource
      * @param \Magento\Framework\Data\Collection\AbstractDb|null $resourceCollection
      * @param array $data
-     * @param ExtensionAttributesFactory|null $extensionFactory
-     * @param AttributeValueFactory|null $customAttributeFactory
-     * @param \Magento\Framework\Serialize\Serializer\Json|null $serializer
      */
     public function __construct(
         \Magento\Framework\Model\Context $context,
         \Magento\Framework\Registry $registry,
-        \Magento\Framework\Data\FormFactory $formFactory,
-        \Magento\Framework\Stdlib\DateTime\TimezoneInterface $localeDate,
+        ExtensionAttributesFactory $extensionFactory,
+        AttributeValueFactory $customAttributeFactory,
         RuleResourceModel $ruleResourceModel,
         \Magento\Framework\Model\ResourceModel\AbstractResource $resource = null,
         \Magento\Framework\Data\Collection\AbstractDb $resourceCollection = null,
-        array $data = [],
-        ExtensionAttributesFactory $extensionFactory = null,
-        AttributeValueFactory $customAttributeFactory = null,
-        \Magento\Framework\Serialize\Serializer\Json $serializer = null
+        array $data = []
     ) {
         parent::__construct(
             $context,
             $registry,
-            $formFactory,
-            $localeDate,
-            $resource,
-            $resourceCollection,
-            $data,
             $extensionFactory,
             $customAttributeFactory,
-            $serializer
+            $resource,
+            $resourceCollection,
+            $data
         );
         $this->ruleResourceModel = $ruleResourceModel ? : ObjectManager::getInstance()->get(RuleResourceModel::class);
     }
@@ -69,7 +60,7 @@ class Rule extends \Magento\Rule\Model\AbstractModel implements \Loyalty\Point\A
     protected function _construct()
     {
         parent::_construct();
-        $this->_init(RuleResourceModel::class);
+        $this->_init(\Loyalty\Point\Model\ResourceModel\Rule::class);
         $this->setIdFieldName('rule_id');
     }
 
@@ -235,22 +226,6 @@ class Rule extends \Magento\Rule\Model\AbstractModel implements \Loyalty\Point\A
     public function getToDate()
     {
         return $this->getData(self::TO_DATE);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getConditionsInstance()
-    {
-        // TODO: Implement getConditionsInstance() method.
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getActionsInstance()
-    {
-        // TODO: Implement getActionsInstance() method.
     }
 
     /**

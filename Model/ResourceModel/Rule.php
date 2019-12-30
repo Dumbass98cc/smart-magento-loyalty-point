@@ -6,8 +6,13 @@ namespace Loyalty\Point\Model\ResourceModel;
  * Class Rule
  * @package Loyalty\Point\Model\ResourceModel
  */
-class Rule extends \Magento\Rule\Model\ResourceModel\AbstractResource
+class Rule extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
 {
+    /**
+     * @var array
+     */
+    protected $_associatedEntitiesMap;
+
     /**
      * @var \Magento\Framework\EntityManager\EntityManager
      */
@@ -59,17 +64,17 @@ class Rule extends \Magento\Rule\Model\ResourceModel\AbstractResource
         return $this->entityManager;
     }
 
-    /**
-     * @param \Magento\Framework\Model\AbstractModel $object
-     * @param int $value
-     * @param null $field
-     * @return $this
-     */
-    public function load(\Magento\Framework\Model\AbstractModel $object, $value, $field = null)
-    {
-        $this->getEntityManager()->load($object, $value);
-        return $this;
-    }
+//    /**
+//     * @param \Magento\Framework\Model\AbstractModel $object
+//     * @param int $value
+//     * @param null $field
+//     * @return $this
+//     */
+//    public function load(\Magento\Framework\Model\AbstractModel $object, $value, $field = null)
+//    {
+//        $this->getEntityManager()->load($object, $value);
+//        return $this;
+//    }
 
     /**
      * @param \Magento\Framework\Model\AbstractModel $object

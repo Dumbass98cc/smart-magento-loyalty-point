@@ -20,5 +20,6 @@ class RewardSalesConvertQuoteToOrder implements ObserverInterface
         $quote = $observer->getData('quote');
 
         $order->setRewardPointsAmount($quote->getRewardPointsAmount());
+        $order->setPointsEarn($quote->getPointsEarn());
     }
 }
