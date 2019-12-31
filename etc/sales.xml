@@ -5,4 +5,9 @@
             <item name="reward_points" instance="Loyalty\Point\Model\Quote\Total\Points" sort_order="20" />
         </group>
     </section>
+    <section name="order_invoice">
+        <group name="totals">
+            <item name="reward_points" instance="Loyalty\Point\Model\Order\Invoice\Total\Points"/>
+        </group>
+    </section>
 </config>
