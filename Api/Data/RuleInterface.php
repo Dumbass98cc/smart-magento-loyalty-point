@@ -8,7 +8,7 @@ namespace Loyalty\Point\Api\Data;
  * Interface RuleInterface
  * @package Loyalty\Point\Api\Data
  */
-interface RuleInterface extends \Magento\Framework\Api\ExtensibleDataInterface
+interface RuleInterface
 {
     const RULE_ID = 'rule_id';
     const NAME = 'name';
@@ -125,18 +125,18 @@ interface RuleInterface extends \Magento\Framework\Api\ExtensibleDataInterface
      */
     public function getToDate();
 
-    /**
-     * Retrieve existing extension attributes object or create a new one.
-     *
-     * @return \Loyalty\Point\Api\Data\RuleExtensionInterface|null
-     */
-    public function getExtensionAttributes();
-
-    /**
-     * Set an extension attributes object.
-     *
-     * @param RuleExtensionInterface $extensionAttributes
-     * @return \Loyalty\Point\Api\Data\RuleExtensionInterface|null
-     */
-    public function setExtensionAttributes(\Loyalty\Point\Api\Data\RuleExtensionInterface $extensionAttributes);
+//    /**
+//     * Retrieve existing extension attributes object or create a new one.
+//     *
+//     * @return \Loyalty\Point\Api\Data\RuleExtensionInterface|null
+//     */
+//    public function getExtensionAttributes();
+//
+//    /**
+//     * Set an extension attributes object.
+//     *
+//     * @param RuleExtensionInterface $extensionAttributes
+//     * @return \Loyalty\Point\Api\Data\RuleExtensionInterface|null
+//     */
+//    public function setExtensionAttributes(\Loyalty\Point\Api\Data\RuleExtensionInterface $extensionAttributes);
 }

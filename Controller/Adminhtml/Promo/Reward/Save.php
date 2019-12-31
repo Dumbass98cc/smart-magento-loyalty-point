@@ -91,6 +91,8 @@ class Save extends \Loyalty\Point\Controller\Adminhtml\Promo\Reward implements H
                     $this->_redirect('*/*/edit', ['id' => $model->getId()]);
                     return;
                 }
+                $model->setCustomerGroupIds($data['customer_group_ids']);
+                unset($data['customer_group_ids']);
 
                 $model->setData($data);
 

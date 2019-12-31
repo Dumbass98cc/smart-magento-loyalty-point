@@ -33,19 +33,19 @@
             </argument>
         </arguments>
     </type>
-    <type name="Magento\Framework\EntityManager\Operation\AttributePool">
-        <arguments>
-            <argument name="extensionActions" xsi:type="array">
-                <item name="rewardRule" xsi:type="array">
-                    <item name="Loyalty\Point\Api\Data\RuleInterface" xsi:type="array">
-                        <item name="read" xsi:type="string">Loyalty\Point\Model\ResourceModel\ReadHandler</item>
-                        <item name="create" xsi:type="string">Loyalty\Point\Model\ResourceModel\SaveHandler</item>
-                        <item name="update" xsi:type="string">Loyalty\Point\Model\ResourceModel\SaveHandler</item>
-                    </item>
-                </item>
-            </argument>
-        </arguments>
-    </type>
+<!--    <type name="Magento\Framework\EntityManager\Operation\AttributePool">-->
+<!--        <arguments>-->
+<!--            <argument name="extensionActions" xsi:type="array">-->
+<!--                <item name="rewardRule" xsi:type="array">-->
+<!--                    <item name="Loyalty\Point\Api\Data\RuleInterface" xsi:type="array">-->
+<!--                        <item name="read" xsi:type="string">Loyalty\Point\Model\ResourceModel\ReadHandler</item>-->
+<!--                        <item name="create" xsi:type="string">Loyalty\Point\Model\ResourceModel\SaveHandler</item>-->
+<!--                        <item name="update" xsi:type="string">Loyalty\Point\Model\ResourceModel\SaveHandler</item>-->
+<!--                    </item>-->
+<!--                </item>-->
+<!--            </argument>-->
+<!--        </arguments>-->
+<!--    </type>-->
     <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
         <arguments>
             <argument name="collections" xsi:type="array">

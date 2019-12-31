@@ -12,7 +12,7 @@ use Loyalty\Point\Model\ResourceModel\Rule as RuleResourceModel;
  * Class Rule
  * @package Loyalty\Point\Model
  */
-class Rule extends \Magento\Framework\Model\AbstractExtensibleModel implements \Loyalty\Point\Api\Data\RuleInterface
+class Rule extends \Magento\Framework\Model\AbstractModel implements \Loyalty\Point\Api\Data\RuleInterface
 {
     /**
      * Prefix of model events names
@@ -35,12 +35,43 @@ class Rule extends \Magento\Framework\Model\AbstractExtensibleModel implements \
      */
     private $ruleResourceModel;
 
+//    /**
+//     * Rule constructor.
+//     * @param \Magento\Framework\Model\Context $context
+//     * @param \Magento\Framework\Registry $registry
+//     * @param ExtensionAttributesFactory $extensionFactory
+//     * @param AttributeValueFactory $customAttributeFactory
+//     * @param RuleResourceModel $ruleResourceModel
+//     * @param \Magento\Framework\Model\ResourceModel\AbstractResource|null $resource
+//     * @param \Magento\Framework\Data\Collection\AbstractDb|null $resourceCollection
+//     * @param array $data
+//     */
+//    public function __construct(
+//        \Magento\Framework\Model\Context $context,
+//        \Magento\Framework\Registry $registry,
+//        ExtensionAttributesFactory $extensionFactory,
+//        AttributeValueFactory $customAttributeFactory,
+//        RuleResourceModel $ruleResourceModel,
+//        \Magento\Framework\Model\ResourceModel\AbstractResource $resource = null,
+//        \Magento\Framework\Data\Collection\AbstractDb $resourceCollection = null,
+//        array $data = []
+//    ) {
+//        parent::__construct(
+//            $context,
+//            $registry,
+//            $extensionFactory,
+//            $customAttributeFactory,
+//            $resource,
+//            $resourceCollection,
+//            $data
+//        );
+//        $this->ruleResourceModel = $ruleResourceModel ? : ObjectManager::getInstance()->get(RuleResourceModel::class);
+//    }
+
     /**
      * Rule constructor.
      * @param \Magento\Framework\Model\Context $context
      * @param \Magento\Framework\Registry $registry
-     * @param ExtensionAttributesFactory $extensionFactory
-     * @param AttributeValueFactory $customAttributeFactory
      * @param RuleResourceModel $ruleResourceModel
      * @param \Magento\Framework\Model\ResourceModel\AbstractResource|null $resource
      * @param \Magento\Framework\Data\Collection\AbstractDb|null $resourceCollection
@@ -49,22 +80,12 @@ class Rule extends \Magento\Framework\Model\AbstractExtensibleModel implements \
     public function __construct(
         \Magento\Framework\Model\Context $context,
         \Magento\Framework\Registry $registry,
-        ExtensionAttributesFactory $extensionFactory,
-        AttributeValueFactory $customAttributeFactory,
         RuleResourceModel $ruleResourceModel,
         \Magento\Framework\Model\ResourceModel\AbstractResource $resource = null,
         \Magento\Framework\Data\Collection\AbstractDb $resourceCollection = null,
         array $data = []
     ) {
-        parent::__construct(
-            $context,
-            $registry,
-            $extensionFactory,
-            $customAttributeFactory,
-            $resource,
-            $resourceCollection,
-            $data
-        );
+        parent::__construct($context, $registry, $resource, $resourceCollection, $data);
         $this->ruleResourceModel = $ruleResourceModel ? : ObjectManager::getInstance()->get(RuleResourceModel::class);
     }
 
@@ -80,16 +101,9 @@ class Rule extends \Magento\Framework\Model\AbstractExtensibleModel implements \
         $this->setIdFieldName('rule_id');
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function getCustomerGroupIds()
+    public function afterLoad()
     {
-        if (!$this->hasCustomerGroupIds()) {
-            $customerGroupIds = $this->ruleResourceModel->getCustomerGroupIds($this->getId());
-            $this->setData('customer_group_ids', (array)$customerGroupIds);
-        }
-        return $this->_getData('customer_group_ids');
+        $this->setData('customer_group_ids', $this->getCustomerGroupIds());
     }
 
     /**
@@ -244,21 +258,21 @@ class Rule extends \Magento\Framework\Model\AbstractExtensibleModel implements \
         return $this->getData(self::TO_DATE);
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function getExtensionAttributes()
-    {
-        return $this->_getExtensionAttributes();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function setExtensionAttributes(RuleExtensionInterface $extensionAttributes)
-    {
-        return $this->setExtensionAttributes($extensionAttributes);
-    }
+//    /**
+//     * @inheritDoc
+//     */
+//    public function getExtensionAttributes()
+//    {
+//        return $this->_getExtensionAttributes();
+//    }
+//
+//    /**
+//     * @inheritDoc
+//     */
+//    public function setExtensionAttributes(RuleExtensionInterface $extensionAttributes)
+//    {
+//        return $this->setExtensionAttributes($extensionAttributes);
+//    }
 
     /**
      * @param \Magento\Framework\DataObject $dataObject
@@ -281,5 +295,30 @@ class Rule extends \Magento\Framework\Model\AbstractExtensibleModel implements \
         }
 
         return !empty($result) ? $result : true;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getCustomerGroupIds()
+    {
+        if (!$this->hasCustomerGroupIds()) {
+            $customerGroupIds = $this->ruleResourceModel->getCustomerGroupIds($this->getId());
+            $this->setData('customer_group_ids', (array)$customerGroupIds);
+        }
+        return $this->_getData('customer_group_ids');
+    }
+
+    /**
+     * @param $customerGroupIds
+     * @return $this
+     */
+    public function setCustomerGroupIds($customerGroupIds)
+    {
+        $this->ruleResourceModel->deleteCustomerGroupIds($this->getId());
+        foreach ($customerGroupIds as $customerGroupId) {
+            $this->ruleResourceModel->setCustomerGroupId($this->getId(), $customerGroupId);
+        }
+        return $this;
     }
 }
