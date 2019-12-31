@@ -9,7 +9,8 @@
                 default="0" comment="Status"/>
         <column xsi:type="int" name="minimum_point" padding="10" unsigned="true" nullable="false" identity="false"
                 comment="Minimum Point"/>
-        <column xsi:type="varchar" name="type" nullable="false" length="255" comment="Rule Type"/>
+        <column xsi:type="smallint" name="type" padding="6" unsigned="true" nullable="false" identity="false"
+                comment="Rule Type"/>
         <column xsi:type="int" name="point_to_be_earned" padding="10" unsigned="false" nullable="true"
                 comment="Point To Be Earned"/>
         <column xsi:type="int" name="conversion_rate" padding="10" unsigned="false" nullable="true"
