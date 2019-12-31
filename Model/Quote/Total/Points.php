@@ -15,7 +15,7 @@ class Points extends \Magento\Quote\Model\Quote\Address\Total\AbstractTotal
      * @param Quote $quote
      * @param \Magento\Quote\Api\Data\ShippingAssignmentInterface $shippingAssignment
      * @param Total $total
-     * @return \Loyalty\Point\Model\Quote\Total\Points|bool
+     * @return $this|bool
      */
     public function collect(
         Quote $quote,
