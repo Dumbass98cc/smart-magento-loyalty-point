@@ -15,6 +15,22 @@ use Loyalty\Point\Model\ResourceModel\Rule as RuleResourceModel;
 class Rule extends \Magento\Framework\Model\AbstractExtensibleModel implements \Loyalty\Point\Api\Data\RuleInterface
 {
     /**
+     * Prefix of model events names
+     *
+     * @var string
+     */
+    protected $_eventPrefix = 'loyaltypoint_rule';
+
+    /**
+     * Parameter name in event
+     *
+     * In observe method you can use $observer->getEvent()->getRule() in this case
+     *
+     * @var string
+     */
+    protected $_eventObject = 'rule';
+
+    /**
      * @var \Loyalty\Point\Model\ResourceModel\Rule
      */
     private $ruleResourceModel;
@@ -265,5 +281,10 @@ class Rule extends \Magento\Framework\Model\AbstractExtensibleModel implements \
         }
 
         return !empty($result) ? $result : true;
+    }
+
+    public function afterSave()
+    {
+        return parent::afterSave();
     }
 }
