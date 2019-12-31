@@ -282,9 +282,4 @@ class Rule extends \Magento\Framework\Model\AbstractExtensibleModel implements \
 
         return !empty($result) ? $result : true;
     }
-
-    public function afterSave()
-    {
-        return parent::afterSave();
-    }
 }
