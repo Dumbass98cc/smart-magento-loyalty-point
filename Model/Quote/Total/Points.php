@@ -48,11 +48,19 @@ class Points extends \Magento\Quote\Model\Quote\Address\Total\AbstractTotal
     public function fetch(Quote $quote, Total $total)
     {
         $amount = $quote->getRewardPointsAmount();
+        $earnPoints = $quote->getPointsEarn();
 
         return [
-            'code' => 'reward_points',
-            'title' => __('Reward Points'),
-            'value' => -$amount
+            [
+                'code' => 'reward_points',
+                'title' => __('Reward Points'),
+                'value' => -$amount
+            ],
+            [
+                'code' => 'earn_points',
+                'title' => __('Earn Points'),
+                'value' => $earnPoints
+            ]
         ];
     }
 

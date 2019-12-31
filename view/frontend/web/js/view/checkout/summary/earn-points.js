@@ -20,7 +20,7 @@ define(
             getPureValue: function() {
                 var price = 0;
                 if (this.totals()) {
-                    price = window.checkoutConfig.reward.earn_points;
+                    price = totals.getSegment('earn_points').value;
                 }
                 return price;
             }
