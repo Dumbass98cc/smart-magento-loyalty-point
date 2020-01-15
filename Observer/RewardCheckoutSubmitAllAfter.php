@@ -31,23 +31,31 @@ class RewardCheckoutSubmitAllAfter implements ObserverInterface
     private $messageManager;
 
     /**
+     * @var \Magento\Framework\Stdlib\DateTime\TimezoneInterface
+     */
+    private $_date;
+
+    /**
      * RewardCheckoutSubmitAllAfter constructor.
      *
      * @param \Loyalty\Point\Model\HistoryFactory $historyFactory
      * @param \Loyalty\Point\Model\ResourceModel\Rule\CollectionFactory $ruleCollectionFactory
      * @param \Loyalty\Point\Helper\Data $helper
      * @param Message\AfterPlaceOrder $messageManager
+     * @param \Magento\Framework\Stdlib\DateTime\TimezoneInterface $date
      */
     public function __construct(
         \Loyalty\Point\Model\HistoryFactory $historyFactory,
         \Loyalty\Point\Model\ResourceModel\Rule\CollectionFactory $ruleCollectionFactory,
         \Loyalty\Point\Helper\Data $helper,
-        \Loyalty\Point\Observer\Message\AfterPlaceOrder $messageManager
+        \Loyalty\Point\Observer\Message\AfterPlaceOrder $messageManager,
+        \Magento\Framework\Stdlib\DateTime\TimezoneInterface $date
     ) {
         $this->historyFactory = $historyFactory;
         $this->ruleCollectionFactory = $ruleCollectionFactory;
         $this->helper = $helper;
         $this->messageManager = $messageManager;
+        $this->_date = $date;
     }
 
     /**
@@ -61,6 +69,7 @@ class RewardCheckoutSubmitAllAfter implements ObserverInterface
         $order = $observer->getData('order');
         /** @var \Magento\Quote\Api\Data\CartInterface $quote */
         $quote = $observer->getData('quote');
+        $quoteDate = $this->_date->formatDate();
 
         $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
         $timezoneInterface = $objectManager->create(\Magento\Framework\Stdlib\DateTime\TimezoneInterface::class);

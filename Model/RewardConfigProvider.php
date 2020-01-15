@@ -48,12 +48,18 @@ class RewardConfigProvider implements \Magento\Checkout\Model\ConfigProviderInte
     protected $_storeManager;
 
     /**
+     * @var \Magento\Framework\Stdlib\DateTime\TimezoneInterface
+     */
+    private $_date;
+
+    /**
      * @param \Magento\Checkout\Model\Session $checkoutSession
      * @param \Magento\Customer\Model\Session $customerSession
      * @param \Loyalty\Point\Model\ResourceModel\History\CollectionFactory $historyCollectionFactory
      * @param \Loyalty\Point\Model\ResourceModel\Rule\CollectionFactory $ruleCollectionFactory
      * @param \Loyalty\Point\Helper\Data $pointsHelper
      * @param \Magento\Store\Model\StoreManagerInterface $storeManager
+     * @param \Magento\Framework\Stdlib\DateTime\TimezoneInterface $date
      */
     public function __construct(
         CheckoutSession $checkoutSession,
@@ -61,9 +67,9 @@ class RewardConfigProvider implements \Magento\Checkout\Model\ConfigProviderInte
         \Loyalty\Point\Model\ResourceModel\History\CollectionFactory $historyCollectionFactory,
         \Loyalty\Point\Model\ResourceModel\Rule\CollectionFactory $ruleCollectionFactory,
         \Loyalty\Point\Helper\Data $pointsHelper,
-        \Magento\Store\Model\StoreManagerInterface $storeManager
-    )
-    {
+        \Magento\Store\Model\StoreManagerInterface $storeManager,
+        \Magento\Framework\Stdlib\DateTime\TimezoneInterface $date
+    ) {
         $this->checkoutSession = $checkoutSession;
         $this->customerSession = $customerSession;
         $this->_storeManager = $storeManager;
@@ -71,6 +77,7 @@ class RewardConfigProvider implements \Magento\Checkout\Model\ConfigProviderInte
         $this->historyCollectionFactory = $historyCollectionFactory;
         $this->ruleCollectionFactory = $ruleCollectionFactory;
         $this->pointsHelper = $pointsHelper;
+        $this->_date = $date;
     }
 
     /**
@@ -137,10 +144,11 @@ class RewardConfigProvider implements \Magento\Checkout\Model\ConfigProviderInte
     {
         $groupId = $this->customerSession->getCustomerGroupId();
         $ruleCollection = $this->ruleCollectionFactory->create()->addCustomerGroupFilter($groupId);
+        $quoteDate = $this->_date->formatDate();
 
-        $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
-        $timezoneInterface = $objectManager->create(\Magento\Framework\Stdlib\DateTime\TimezoneInterface::class);
-        $quoteDate = $timezoneInterface->date($this->checkoutSession->getQuote()->getUpdatedAt())->format('Y-m-d');
+//        $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+//        $timezoneInterface = $objectManager->create(\Magento\Framework\Stdlib\DateTime\TimezoneInterface::class);
+//        $quoteDate = $timezoneInterface->date($this->checkoutSession->getQuote()->getUpdatedAt())->format('Y-m-d');
 
         $points = 0;
         /** @var \Loyalty\Point\Model\Rule $rule */

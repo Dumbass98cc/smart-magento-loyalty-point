@@ -34,23 +34,31 @@ class PointsManagement implements PointsManagementInterface
     private $ruleCollectionFactory;
 
     /**
+     * @var \Magento\Framework\Stdlib\DateTime\TimezoneInterface
+     */
+    private $_date;
+
+    /**
      * PointsManagement constructor.
      *
      * @param \Magento\Quote\Api\CartRepositoryInterface $quoteRepository
      * @param \Loyalty\Point\Helper\Data $pointsHelper
      * @param ResourceModel\Rule\CollectionFactory $ruleCollectionFactory
      * @param ResourceModel\History\CollectionFactory $historyCollectionFactory
+     * @param \Magento\Framework\Stdlib\DateTime\TimezoneInterface $date
      */
     public function __construct(
         \Magento\Quote\Api\CartRepositoryInterface $quoteRepository,
         \Loyalty\Point\Helper\Data $pointsHelper,
         \Loyalty\Point\Model\ResourceModel\Rule\CollectionFactory $ruleCollectionFactory,
-        \Loyalty\Point\Model\ResourceModel\History\CollectionFactory $historyCollectionFactory
+        \Loyalty\Point\Model\ResourceModel\History\CollectionFactory $historyCollectionFactory,
+        \Magento\Framework\Stdlib\DateTime\TimezoneInterface $date
     ) {
         $this->quoteRepository = $quoteRepository;
         $this->pointsHelper = $pointsHelper;
         $this->ruleCollectionFactory = $ruleCollectionFactory;
         $this->historyCollectionFactory = $historyCollectionFactory;
+        $this->_date = $date;
     }
 
     /**
@@ -119,10 +127,11 @@ class PointsManagement implements PointsManagementInterface
     {
         $groupId = $quote->getCustomerGroupId();
         $ruleCollection = $this->ruleCollectionFactory->create()->addCustomerGroupFilter($groupId);
+        $quoteDate = $this->_date->formatDate('');
 
-        $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
-        $timezoneInterface = $objectManager->create(\Magento\Framework\Stdlib\DateTime\TimezoneInterface::class);
-        $quoteDate = $timezoneInterface->date($quote->getUpdatedAt())->format('Y-m-d');
+//        $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+//        $timezoneInterface = $objectManager->create(\Magento\Framework\Stdlib\DateTime\TimezoneInterface::class);
+//        $quoteDate = $timezoneInterface->date($quote->getUpdatedAt())->format('Y-m-d');
 
         $points = 0;
         /** @var \Loyalty\Point\Model\Rule $rule */
